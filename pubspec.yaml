@@ -1,0 +1,85 @@
+name: kpm
+description: KPM - A modern, offline-first note-taking app
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.6
+
+  # state management
+  flutter_riverpod: ^2.4.9
+  riverpod_annotation: ^2.3.3
+
+  # database
+  drift: ^2.14.1
+  sqlite3_flutter_libs: ^0.5.18
+  path_provider: ^2.1.1
+  path: ^1.8.3
+
+  # storage
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
+  # editor
+  flutter_quill: ^9.2.2
+  flutter_markdown: ^0.6.18
+
+  # utils
+  uuid: ^4.3.3
+  intl: ^0.18.1
+  share_plus: ^7.2.1
+
+  # ui
+  flutter_colorpicker: ^1.0.3
+
+  # other
+  equatable: ^2.0.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.1
+
+  drift_dev: ^2.14.1
+  build_runner: ^2.4.8
+  riverpod_generator: ^2.3.9
+  riverpod_lint: ^2.3.7
+  hive_generator: ^2.0.1
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/app_icon.png"
+  min_sdk_android: 21
+  web:
+    generate: true
+    image_path: "assets/icons/app_icon.png"
+    background_color: "#007AFF"
+    theme_color: "#007AFF"
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/fonts/
+
+  fonts:
+    - family: SF Pro
+      fonts:
+        - asset: assets/fonts/SF-Pro-Display-Regular.ttf
+        - asset: assets/fonts/SF-Pro-Display-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/SF-Pro-Display-Semibold.ttf
+          weight: 600
+        - asset: assets/fonts/SF-Pro-Display-Bold.ttf
+          weight: 700
