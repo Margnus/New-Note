@@ -8,10 +8,16 @@ import 'package:kpm/domain/entities/tag_entity.dart';
 import 'package:kpm/domain/repositories/note_repository.dart';
 import 'package:kpm/domain/repositories/folder_repository.dart';
 import 'package:kpm/domain/repositories/tag_repository.dart';
-import 'package:kpm/data/database/app_database_class.dart';
+import 'package:kpm/data/database/app_database.dart';
+import 'package:drift/drift.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
+import 'dart:io';
 
-final databaseProvider = Provider<AppDatabase>((ref) {
-  return AppDatabase();
+final databaseProvider = FutureProvider<AppDatabase>((ref) async {
+  final dbFolder = await getApplicationDocumentsDirectory();
+  final file = File(p.join(dbFolder.path, 'kpm.db'));
+  return AppDatabase(NativeDatabase.createInBackground(file));
 });
 
 final noteRepositoryProvider = Provider<NoteRepository>((ref) {

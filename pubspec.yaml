@@ -32,7 +32,7 @@ dependencies:
 
   # utils
   uuid: ^4.3.3
-  intl: ^0.18.1
+  intl: ^0.20.2
   share_plus: ^7.2.1
 
   # ui

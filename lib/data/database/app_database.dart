@@ -1,51 +1,32 @@
 import 'package:drift/drift.dart';
 
-part 'tables/notes_table.dart';
-part 'tables/folders_table.dart';
-part 'tables/tags_table.dart';
+part 'app_database.g.dart';
 
-@DataClassName('Note')
-class Notes extends Table {
-  TextColumn get id => text()();
-  TextColumn get title => text().withDefault(const Constant(''))();
-  TextColumn get content => text().withDefault(const Constant(''))();
-  TextColumn get folderId => text().nullable()();
-  BoolColumn get isPinned => boolean().withDefault(const Constant(false))();
-  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
-  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
-  BoolColumn get isDeleted => boolean().withDefault(const Constant(false))();
-  DateTimeColumn get deletedAt => dateTime().nullable()();
-
-  @override
-  Set<Column> get primaryKey => {id};
-}
-
-@DataClassName('Folder')
-class Folders extends Table {
-  TextColumn get id => text()();
-  TextColumn get name => text()();
-  TextColumn get parentId => text().nullable()();
-  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+@DriftDatabase(tables: [
+  Notes,
+  Folders,
+  Tags,
+  NoteTags,
+], daos: [
+  NotesDao,
+  FoldersDao,
+  TagsDao,
+])
+class AppDatabase extends _$AppDatabase {
+  AppDatabase(QueryExecutor e) : super(e);
 
   @override
-  Set<Column> get primaryKey => {id};
-}
-
-@DataClassName('Tag')
-class Tags extends Table {
-  TextColumn get id => text()();
-  TextColumn get name => text()();
-  TextColumn get color => text()();
+  int get schemaVersion => 1;
 
   @override
-  Set<Column> get primaryKey => {id};
-}
-
-@DataClassName('NoteTag')
-class NoteTags extends Table {
-  TextColumn get noteId => text()();
-  TextColumn get tagId => text()();
-
-  @override
-  Set<Column> get primaryKey => {noteId, tagId};
+  MigrationStrategy get migration {
+    return MigrationStrategy(
+      onCreate: (Migrator m) async {
+        await m.createAll();
+      },
+      onUpgrade: (Migrator m, int from, int to) async {
+        // Add migration logic here
+      },
+    );
+  }
 }
