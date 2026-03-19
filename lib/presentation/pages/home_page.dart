@@ -5,6 +5,7 @@ import 'package:kpm/core/constants/app_constants.dart';
 import 'package:kpm/presentation/providers/note_provider.dart';
 import 'package:kpm/presentation/widgets/common/animations.dart';
 import 'package:kpm/presentation/widgets/note/note_card.dart';
+import 'package:kpm/domain/entities/note_entity.dart';
 import 'package:uuid/uuid.dart';
 
 class HomePage extends ConsumerStatefulWidget {

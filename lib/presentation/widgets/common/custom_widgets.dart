@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:kpm/core/constants/app_colors.dart';
 import 'package:kpm/core/constants/app_constants.dart';
@@ -196,9 +197,7 @@ class GlassCard extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(AppConstants.cardRadius),
         child: BackdropFilter(
-          filter: (blur != 0)
-              ? null
-              : null,
+          filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
           child: InkWell(
             onTap: onTap,
             borderRadius: BorderRadius.circular(AppConstants.cardRadius),

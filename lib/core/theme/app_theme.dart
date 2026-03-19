@@ -40,11 +40,11 @@ class AppTheme {
         ),
       ),
 
-      cardTheme: CardTheme(
+      cardTheme: const CardThemeData(
         elevation: 2,
         shadowColor: AppColors.lightCardShadow,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppConstants.cardRadius),
+          borderRadius: BorderRadius.all(Radius.circular(AppConstants.cardRadius)),
         ),
         color: AppColors.lightCard,
       ),
@@ -157,11 +157,11 @@ class AppTheme {
         ),
       ),
 
-      cardTheme: CardTheme(
+      cardTheme: const CardThemeData(
         elevation: 2,
         shadowColor: AppColors.darkCardShadow,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppConstants.cardRadius),
+          borderRadius: BorderRadius.all(Radius.circular(AppConstants.cardRadius)),
         ),
         color: AppColors.darkCard,
       ),

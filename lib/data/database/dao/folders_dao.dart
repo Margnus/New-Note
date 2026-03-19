@@ -1,6 +1,5 @@
 import 'package:drift/drift.dart';
-import '../app_database.dart' hide noteTags;
-import '../app_database.dart' as db show noteTags;
+import '../app_database.dart';
 
 part 'folders_dao.g.dart';
 
@@ -45,7 +44,7 @@ class FoldersDao extends DatabaseAccessor<AppDatabase> with _$FoldersDaoMixin {
   }
 
   Future<int> deleteFolderAndContents(String id) async {
-    await (delete(db.notes)..where((tbl) => tbl.folderId.equals(id))).go();
+    await (delete(db.notes)..where((tbl) => db.notes.folderId.equals(id))).go();
 
     final subFolders = await getSubFolders(id);
     for (final folder in subFolders) {

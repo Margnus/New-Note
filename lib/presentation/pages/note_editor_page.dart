@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_quill/quill_delta.dart';
 import 'package:kpm/core/constants/app_strings.dart';
 import 'package:kpm/core/constants/app_constants.dart';
 import 'package:kpm/domain/entities/note_entity.dart';
@@ -145,7 +146,7 @@ class _NoteEditorPageState extends ConsumerState<NoteEditorPage> {
                 ),
                 TextButton(
                   onPressed: () => Navigator.pop(context, true),
-                  child: const Text(AppStrings.discard),
+                  child: Text(AppStrings.discardChanges),
                 ),
               ],
             ),
@@ -204,9 +205,9 @@ class _NoteEditorPageState extends ConsumerState<NoteEditorPage> {
               const SizedBox(height: AppConstants.defaultPadding),
               Expanded(
                 child: QuillEditor.basic(
-                  controller: _contentController,
-                  readOnly: false,
-                  configurations: const QuillEditorConfigurations(
+                  configurations: QuillEditorConfigurations(
+                    controller: _contentController,
+                    readOnly: false,
                     placeholder: AppStrings.emptyContent,
                     padding: EdgeInsets.zero,
                   ),
@@ -216,8 +217,8 @@ class _NoteEditorPageState extends ConsumerState<NoteEditorPage> {
           ),
         ),
         bottomNavigationBar: QuillSimpleToolbar(
-          controller: _contentController,
-          configurations: const QuillSimpleToolbarConfigurations(
+          configurations: QuillSimpleToolbarConfigurations(
+            controller: _contentController,
             showAlignmentButtons: false,
             showBackgroundColorButton: false,
             showClearFormat: false,

@@ -31,9 +31,9 @@ class NotesDao extends DatabaseAccessor<AppDatabase> with _$NotesDaoMixin {
 
   Future<List<Note>> getNotesByTag(String tagId) async {
     final query = select(notes).join([
-      innerJoin(noteTags, noteTags.noteId.equalsExp(notes.id)),
+      innerJoin(db.noteTags, db.noteTags.noteId.equalsExp(notes.id)),
     ])
-      ..where(noteTags.tagId.equals(tagId) & notes.isDeleted.equals(false))
+      ..where(db.noteTags.tagId.equals(tagId) & notes.isDeleted.equals(false))
       ..orderBy([OrderingTerm.desc(notes.updatedAt)]);
 
     return query.map((row) => row.readTable(notes)).get();
@@ -73,36 +73,33 @@ class NotesDao extends DatabaseAccessor<AppDatabase> with _$NotesDaoMixin {
     return (delete(notes)..where((tbl) => tbl.id.equals(id))).go();
   }
 
-  Future<int> softDeleteNote(String id) async {
-    return (update(notes)
+  Future<void> softDeleteNote(String id) async {
+    (update(notes)
           ..where((tbl) => tbl.id.equals(id))
           ..write(NotesCompanion(
             isDeleted: const Value(true),
             deletedAt: Value(DateTime.now()),
-          )))
-        .go();
+          )));
   }
 
-  Future<int> restoreNote(String id) async {
-    return (update(notes)
+  Future<void> restoreNote(String id) async {
+    (update(notes)
           ..where((tbl) => tbl.id.equals(id))
           ..write(const NotesCompanion(
             isDeleted: Value(false),
-            deletedAt: Value(null),
-          )))
-        .go();
+            deletedAt: const Value(null),
+          )));
   }
 
-  Future<int> togglePinNote(String id) async {
+  Future<void> togglePinNote(String id) async {
     final note = await getNoteById(id);
-    if (note == null) return 0;
+    if (note == null) return;
 
-    return (update(notes)
+    (update(notes)
           ..where((tbl) => tbl.id.equals(id))
           ..write(NotesCompanion(
             isPinned: Value(!note.isPinned),
-          )))
-        .go();
+          )));
   }
 
   Future<int> emptyTrash() async {
